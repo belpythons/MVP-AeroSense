@@ -19,7 +19,6 @@ import {
   Activity,
   Clock,
   MapPin,
-  Mask,
   TreePine,
   Car,
 } from "lucide-react";
