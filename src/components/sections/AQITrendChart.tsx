@@ -76,18 +76,35 @@ interface AQITrendChartProps {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
+    const aqiValue = payload[0]?.value;
+    const getAQIStatusFromValue = (aqi: number) => {
+      if (aqi <= 50) return { status: "Good", color: "#10b981" };
+      if (aqi <= 100) return { status: "Moderate", color: "#f59e0b" };
+      if (aqi <= 150)
+        return { status: "Unhealthy for Sensitive Groups", color: "#f97316" };
+      return { status: "Unhealthy", color: "#ef4444" };
+    };
+
+    const statusInfo = getAQIStatusFromValue(aqiValue);
+
     return (
-      <div className="bg-slate-800/95 backdrop-blur-md border border-slate-600 rounded-lg p-3 shadow-xl">
-        <p className="text-slate-300 text-sm font-medium mb-1">
-          {payload[0]?.payload?.date}
+      <div className="bg-white/98 backdrop-blur-md border border-slate-300 rounded-lg p-4 shadow-xl">
+        <p className="text-slate-700 text-sm font-semibold mb-2">
+          {payload[0]?.payload?.date} ({label})
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 mb-2">
           <div
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: payload[0]?.color }}
+            className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
+            style={{ backgroundColor: statusInfo.color }}
           />
-          <span className="text-white text-sm">
-            AQI: <span className="font-bold">{payload[0]?.value}</span>
+          <span className="text-slate-900 text-lg font-bold">
+            AQI: {aqiValue}
+          </span>
+        </div>
+        <div className="text-sm text-slate-600">
+          Status:{" "}
+          <span className="font-semibold" style={{ color: statusInfo.color }}>
+            {statusInfo.status}
           </span>
         </div>
       </div>
@@ -113,6 +130,7 @@ export default function AQITrendChart({ selectedCity }: AQITrendChartProps) {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="py-12"
+      style={{ backgroundColor: "#FAFAFA" }}
       key={`trend-${selectedCity}`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
@@ -122,14 +140,14 @@ export default function AQITrendChart({ selectedCity }: AQITrendChartProps) {
           transition={{ duration: 0.6, delay: 0.2 }}
           key={selectedCity}
         >
-          <Card className="bg-slate-800/80 backdrop-blur-md border-slate-700 shadow-2xl">
+          <Card className="bg-white shadow-2xl border border-slate-200">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-2xl font-bold text-white mb-2">
+                  <CardTitle className="text-2xl font-bold text-slate-900 mb-2">
                     AQI Trend (Last 7 Days)
                   </CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardDescription className="text-slate-600">
                     {selectedCity.charAt(0).toUpperCase() +
                       selectedCity.slice(1)}{" "}
                     air quality progression
@@ -138,13 +156,13 @@ export default function AQITrendChart({ selectedCity }: AQITrendChartProps) {
                 <div className="text-right">
                   <div className="flex items-center gap-2 mb-1">
                     {isImproving ? (
-                      <TrendingDown className="w-5 h-5 text-emerald-400" />
+                      <TrendingDown className="w-5 h-5 text-emerald-600" />
                     ) : (
-                      <TrendingUp className="w-5 h-5 text-red-400" />
+                      <TrendingUp className="w-5 h-5 text-red-600" />
                     )}
                     <span
                       className={`text-sm font-medium ${
-                        isImproving ? "text-emerald-400" : "text-red-400"
+                        isImproving ? "text-emerald-600" : "text-red-600"
                       }`}
                     >
                       {isImproving ? "" : "+"}
@@ -213,6 +231,17 @@ export default function AQITrendChart({ selectedCity }: AQITrendChartProps) {
                       tickLine={false}
                       tick={{ fill: "#9ca3af", fontSize: 12 }}
                       dx={-10}
+                      label={{
+                        value: "AQI Score",
+                        angle: -90,
+                        position: "insideLeft",
+                        style: {
+                          textAnchor: "middle",
+                          fill: "#6b7280",
+                          fontSize: "14px",
+                          fontWeight: "600",
+                        },
+                      }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Area
@@ -244,7 +273,7 @@ export default function AQITrendChart({ selectedCity }: AQITrendChartProps) {
               </div>
             </CardContent>
 
-            <CardFooter className="pt-4 border-t border-slate-700/50">
+            <CardFooter className="pt-4 border-t border-slate-200">
               <p className="text-slate-500 text-sm">
                 Data simulated for prototype • Updated every hour
               </p>
