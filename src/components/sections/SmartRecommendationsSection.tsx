@@ -199,7 +199,7 @@ export default function SmartRecommendationsSection({
     statusColors[currentData.color as keyof typeof statusColors];
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24" style={{ backgroundColor: "#FAFAFA" }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -208,10 +208,10 @@ export default function SmartRecommendationsSection({
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight">
             Smart Health Recommendations
           </h2>
-          <p className="text-xl text-zinc-600 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Personalized advice and precautions based on current air quality
             conditions.
           </p>
@@ -226,23 +226,33 @@ export default function SmartRecommendationsSection({
           key={`${selectedCity}-alert`}
           className="mb-12"
         >
-          <Card className={`bg-white shadow-lg ${colorScheme.border} border-2`}>
-            <CardContent className="p-6">
-              <div className="flex items-start space-x-4">
-                <AlertTriangle
-                  className={`h-8 w-8 ${colorScheme.icon} mt-1 flex-shrink-0`}
-                />
-                <div>
-                  <h3
-                    className={`text-xl font-semibold ${colorScheme.text} mb-2`}
-                  >
-                    Current Status: {currentData.status}
-                  </h3>
-                  <p
-                    className={`${colorScheme.text} text-base leading-relaxed`}
-                  >
-                    {currentData.generalAdvice}
-                  </p>
+          <Card className={`bg-white shadow-xl ${colorScheme.border} border-2`}>
+            <CardContent className="p-8">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start space-x-4 flex-1">
+                  <AlertTriangle
+                    className={`h-8 w-8 ${colorScheme.icon} mt-1 flex-shrink-0`}
+                  />
+                  <div className="flex-1">
+                    <h3
+                      className={`text-2xl font-bold ${colorScheme.text} mb-3 tracking-tight`}
+                    >
+                      Current Status: {currentData.status}
+                    </h3>
+                    <p
+                      className={`${colorScheme.text} text-base leading-relaxed`}
+                    >
+                      {currentData.generalAdvice}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right ml-6">
+                  <div className="text-5xl font-black text-slate-900 mb-1">
+                    {currentData.aqi}
+                  </div>
+                  <div className="text-sm font-semibold text-slate-600 uppercase tracking-wider">
+                    AQI Score
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -353,7 +363,7 @@ export default function SmartRecommendationsSection({
           viewport={{ once: true }}
           key={`${selectedCity}-context`}
         >
-          <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
+          <Card className="shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
             <CardHeader>
               <CardTitle className="text-2xl flex items-center">
                 <MapPin className="h-6 w-6 text-blue-600 mr-3" />
