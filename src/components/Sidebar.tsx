@@ -93,13 +93,17 @@ export default function Sidebar({ selectedCity, onCityChange }: SidebarProps) {
                   <p className="text-slate-400 text-xs">{city.province}</p>
                 </div>
                 <div className="text-right">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className={`w-2 h-2 rounded-full ${city.color}`} />
-                    <span className="text-slate-100 font-bold text-lg">
+                  <div className="flex items-center gap-3 mb-1">
+                    <div
+                      className={`w-3 h-3 rounded-full ${city.color} shadow-lg`}
+                    />
+                    <span className="text-white font-black text-2xl tracking-tight">
                       {city.aqi}
                     </span>
                   </div>
-                  <p className="text-slate-400 text-xs">{city.status}</p>
+                  <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                    {city.status}
+                  </p>
                 </div>
               </div>
             </motion.button>
