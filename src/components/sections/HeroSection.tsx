@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Wind, Thermometer, Droplets, Eye, AlertCircle } from "lucide-react";
+import WindCompass from "./WindCompass";
 import { CITIES_DATA, getCityById } from "@/data/airQualityData";
 
 interface AQIHeroSectionProps {
@@ -143,15 +144,16 @@ export default function AQIHeroSection({ selectedCity }: AQIHeroSectionProps) {
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700">
-                <CardContent className="p-4">
-                  <Wind className="h-5 w-5 text-cyan-400 mb-2" />
-                  <div className="text-2xl font-bold text-white">{currentData.windSpeed}</div>
-                  <div className="text-xs text-slate-400">km/h Wind</div>
-                </CardContent>
-              </Card>
+              {/* Wind Compass - Spans 2 columns */}
+              <div className="col-span-2">
+                <WindCompass
+                  speed={currentData.windSpeed}
+                  direction={currentData.windDirection}
+                  directionLabel={currentData.windDirectionLabel}
+                />
+              </div>
 
-              <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700">
+              <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700 col-span-2">
                 <CardContent className="p-4">
                   <Eye className="h-5 w-5 text-purple-400 mb-2" />
                   <div className="text-2xl font-bold text-white">{currentData.visibility}</div>
