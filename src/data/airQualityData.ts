@@ -21,6 +21,8 @@ export interface CityData {
   temperature: number;
   humidity: number;
   windSpeed: number;
+  windDirection: number; // Derajat (0-360)
+  windDirectionLabel: string; // "SE", "NW", dll
   visibility: number;
   healthRisk: string;
   cigarettes: number;
@@ -66,6 +68,8 @@ export const CITIES_DATA: CityData[] = [
     temperature: 28,
     humidity: 75,
     windSpeed: 15,
+    windDirection: 135,  // Southeast
+    windDirectionLabel: "SE",
     visibility: 12.8,
     healthRisk: "Low",
     cigarettes: 0.6,
@@ -126,6 +130,8 @@ export const CITIES_DATA: CityData[] = [
     temperature: 31,
     humidity: 82,
     windSpeed: 8,
+    windDirection: 225,  // Southwest
+    windDirectionLabel: "SW",
     visibility: 8.5,
     healthRisk: "Moderate",
     cigarettes: 1.2,
@@ -186,6 +192,8 @@ export const CITIES_DATA: CityData[] = [
     temperature: 29,
     humidity: 88,
     windSpeed: 4,
+    windDirection: 180,  // South
+    windDirectionLabel: "S",
     visibility: 5.2,
     healthRisk: "High",
     cigarettes: 2.1,
